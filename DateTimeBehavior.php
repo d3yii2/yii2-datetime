@@ -64,6 +64,8 @@ class DateTimeBehavior extends Behavior
      */
     public $attributeValues = [];
 
+    public $convertAfterFind = false;
+
     public function init()
     {
         if (is_null($this->formatter))
@@ -113,6 +115,9 @@ class DateTimeBehavior extends Behavior
         if ($this->performValidation) {
             $events[BaseActiveRecord::EVENT_BEFORE_VALIDATE] = 'onBeforeValidate';
         }
+        if ($this->convertAfterFind) {
+            $events[BaseActiveRecord::EVENT_AFTER_FIND] = 'afterFind';
+        }
         return $events;
     }
 
@@ -130,6 +135,21 @@ class DateTimeBehavior extends Behavior
                 ]);
                 $validator->validateAttribute($this->owner, $targetAttribute);
             }
+        }
+    }
+
+    /**
+     * Convert the dates to target format after find
+     * @param Event $event
+     */
+    public function afterFind($event)
+    {
+        foreach ($this->attributeValues as $targetAttribute => $value) {
+            $this->owner->{$value['originalAttribute']} =
+            $this->formatter->asDate(
+                $this->owner->{$value['originalAttribute']},
+                self::normalizeIcuFormat($value['targetFormat'], $this->formatter)[1]
+            );
         }
     }
 
