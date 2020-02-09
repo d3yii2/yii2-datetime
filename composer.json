@@ -1,17 +1,21 @@
 {
-    "name": "omnilight/yii2-datetime",
+    "name": "d3yii2/yii2-datetime",
     "description": "Yii2 extension that adds helpers and behaviors for working with date and time",
-    "keywords": ["yii2", "date", "time", "datetime"],
+    "keywords": ["d3yii2", "yii2", "date", "time", "datetime"],
     "minimum-stability": "dev",
     "authors": [
         {
             "name": "Pavel Agalecky",
             "email": "pavel.agalecky@gmail.com"
         }
+        {
+            "name": "Lauris Mierkalns",
+            "email": "lauris@weberp.lv"
+        }
     ],
     "type": "yii2-extension",
     "require": {
-        "php": ">=5.4.0",
+        "php": ">=7.2",
         "yiisoft/yii2": "*"
     },
     "autoload": {
