@@ -102,7 +102,7 @@ class DateTimeBehavior extends Behavior
         }
     }
 
-    protected function processTemplate($originalAttribute)
+    public function processTemplate($originalAttribute)
     {
         return strtr($this->namingTemplate, [
             '{attribute}' => $originalAttribute,
